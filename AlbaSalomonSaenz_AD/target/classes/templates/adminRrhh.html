@@ -36,13 +36,11 @@
 									<ul th:if="${session.usuario.role == 'ROL_ADMIN'}">
 										<li ><a th:href="@{/admin/listrrhh}">RRHH</a></li>
 										<li ><a th:href="@{/admin/listalumnos}">ALUMNOS</a></li>
-										<li ><a th:href="@{/admin/ciclos}">CICLOS</a></li>
-										<li ><a th:href="@{/admin/noticias}">CICLOS</a></li>
 									</ul>
 									<ul th:if="${session.usuario.role == 'ROL_ALUMNO'}">
 										<li><a class="co" href="#" th:href="@{/users/editUser}">Editar Perfil</a></li>
 									</ul>
-								<li class="dropdown"><a href="#"  th:href="@{/auth/login}"><span>Salir </span> <i class="bi bi-chevron-down"></i></a>
+								<li class="dropdown"><a href="#" th:href="@{/auth/login}"><span>Salir </span> <i class="bi bi-chevron-down"></i></a>
 								</ul>
 							</div>
 						</nav>
@@ -51,9 +49,37 @@
 			</div>
 		</div>
 	</header>
-      <section class="banner_main">
+      <section id="crud" class="banner_main">
          <div class="container">
-         	<h1>BIENVENIDO</h1>
+         	<h1>CRUD RRHH</h1>
+         	<table class="table pt-5">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Apellidos</th>
+						<th>Email</th>
+						<th>Teléfono</th>
+						<th>Empresa</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="usuario:${usuarios}">
+						<td th:text="${usuario.id}"></td>
+						<td th:text="${usuario.nombre}"></td>
+						<td th:text="${usuario.apellidos}"></td>
+						<td th:text="${usuario.email}"></td>
+						<td th:text="${usuario.telefono}"></td>
+						<td th:text="${usuario.empresa}"></td>
+						<td>
+							<a th:href="@{/admin/updateuser/} + ${usuario.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+							<a th:href="@{/admin/deleteuser/} + ${usuario.id}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<a th:href="@{/admin/creater}">Crear RRHH</a>
 		</div>
 	</section>
 </body>

@@ -1,5 +1,8 @@
 package com.ad.gestionOfertas.services.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,5 +46,63 @@ public class UsuariosServiceImpl implements UsuariosService {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(usuarios, UsuariosModel.class);
 	}
+
+	@Override
+	public Usuarios editUser(UsuariosModel usuario) {
+		return usuariosRepository.save(transform(usuario));
+	}
 	
+	
+	@Override
+	public List<UsuariosModel> listAllUsers(String role) {
+		return usuariosRepository.findUserByRole(role).stream().
+				map(c->transform(c)).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Usuarios findUserById(int id) {
+		return usuariosRepository.findUserById(id);
+	}
+	
+	@Override
+	public void deleteUser(int id) throws Exception {
+		Usuarios usuario = usuariosRepository.findUserById(id);
+		usuariosRepository.delete(usuario);
+	}
+
+	@Override
+	public Usuarios updateUser(UsuariosModel usuariosModel) {
+		usuariosRepository.findUserById(usuariosModel.getId());
+		usuariosModel.setPassword(passwordEncoder.encode(usuariosModel.getPassword()));
+		return usuariosRepository.save(transform(usuariosModel));
+	}
+
+	@Override
+	public Usuarios activeUser(UsuariosModel usuarioModel) {
+		usuarioModel.setEnabled(true);
+		return usuariosRepository.save(transform(usuarioModel));
+	}
+
+	@Override
+	public Usuarios deactiveUser(UsuariosModel usuarioModel) {
+		usuarioModel.setEnabled(false);
+		return usuariosRepository.save(transform(usuarioModel));
+	}
+
+	@Override
+	public Usuarios createUser(UsuariosModel usuariosModel) {
+		usuariosModel.setPassword(passwordEncoder.encode(usuariosModel.getPassword()));
+		return usuariosRepository.save(transform(usuariosModel));
+	}
+	
+	@Override
+	public Usuarios createrUser(UsuariosModel usuariosModel) {
+		usuariosModel.setPassword(passwordEncoder.encode(usuariosModel.getPassword()));
+		return usuariosRepository.save(transform(usuariosModel));
+	}
+
+
+
+
+
 }

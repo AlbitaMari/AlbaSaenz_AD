@@ -18,7 +18,7 @@
     <h1>Registro de Usuario</h1>
     <div class="main-agileinfo">
       <div class="agileits-top">
-        <form action="#" th:action="@{/auth/registro}" th:object="${usuario}" method="post">
+        <form action="#" th:action="@{/admin/create}" th:object="${usuario}" method="post">
           <label class="lab">Nombre</label><input class="text" type="text" name="nombre" placeholder="Nombre" th:field="*{nombre}">
           <label class="lab">Apellidos</label><input class="text" type="text" name="apellidos" placeholder="Apellidos" th:field="*{apellidos}">
           <label class="lab">Email</label><input type="email" name="email" placeholder="Email" th:field="*{email}">
@@ -28,7 +28,7 @@
           <div class="wthree-text">
             <div class="clear"> </div>
           </div>
-          <input type="submit" value="REGISTRAR">
+          <input type="submit" value="CREAR">
         </form>
 	    <button class="boton" th:onclick="window.location.href='/public/index'">
 	       <span>CANCELAR</span>
@@ -38,5 +38,4 @@
   </div>
   <!-- //main -->
 </body>
-
 </html>

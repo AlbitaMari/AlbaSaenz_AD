@@ -1,5 +1,9 @@
 package com.ad.gestionOfertas.services;
 
-public interface NoticiasService {
+import java.util.List;
 
+import com.ad.gestionOfertas.models.UsuariosModel;
+
+public interface NoticiasService {
+	List<UsuariosModel> listAllNoticias();
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Backend Ninja - Add/modify Contact</title>
+	<title>Actualizar Usuario</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet"
@@ -14,30 +14,33 @@
     <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
-
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Contact Form</h1>
-			<br/>
-			<form action="#">
-				First Name: <input type="text" class="form-control"></input>
-				<br/>
-				Last Name: <input type="text" class="form-control"></input>
-				<br/>
-				Telephone: <input type="text" class="form-control"></input>
-				<br/>
-				City: <input type="text" class="form-control"></input>
-				<br/>
-				<br/>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">
-					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Accept
-				</button>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Accept
-				</button>
-			</form>
-		</div>
-	</div>
-
+ <div class="main-w3layouts wrapper">
+    <h1>Actualizar Usuario</h1>
+    <div class="main-agileinfo">
+      <div class="agileits-top">
+        <form action="#" th:action="@{/users/editUser/edit}" th:object="${usuario}" method="post">
+          <input type="hidden" th:field="*{id}" id="id">
+          <input type="hidden" th:field="*{role}" id="role">
+          <label class="lab">Nombre</label><input class="text" type="text" name="nombre" placeholder="Nombre" th:field="*{nombre}">
+          <label class="lab">Apellidos</label><input class="text" type="text" name="apellidos" placeholder="Apellidos" th:field="*{apellidos}">
+          <label class="lab">Email</label><input type="email" name="email" placeholder="Email" th:field="*{email}">
+          <label class="lab">Telefono</label><input class="text" type="text" name="telefono" placeholder="Teléfono" th:field="*{telefono}">
+          <label class="lab">Contraseña</label><input class="text" type="password" name="password" placeholder="Password" th:field="*{password}">
+          <label class="lab">Confirma tu contraseña</label><input class="text w3lpass" type="password" placeholder="Confirmar Password">
+          <div class="wthree-text">
+            <div class="clear"> </div>
+          </div>
+          <input type="submit" value="EDITAR">
+        </form>
+        <a href="#" th:href="@{/users/cancel}">
+	        <button class="boton" type="submit">
+	        	<span>CANCELAR</span>
+	        </button>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- //main -->
 </body>
+
 </html>

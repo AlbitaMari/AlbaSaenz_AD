@@ -9,5 +9,5 @@ import com.ad.gestionOfertas.entities.Noticias;
 
 @Repository("noticiasRepository")
 public interface NoticiasRepository  extends JpaRepository<Noticias,Serializable>{
-
+		Noticias findNoticiaById(int id);
 }

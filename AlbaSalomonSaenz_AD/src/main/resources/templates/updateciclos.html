@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Registro de Usuario</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+ <div class="main-w3layouts wrapper">
+    <h1>Editar Usuario</h1>
+    <div class="main-agileinfo">
+      <div class="agileits-top">
+         	<form action="#" th:action="@{/admin/updateciclo/} + ${ciclo.id}" th:object="${ciclo}" method="post">
+	          <label class="lab">Nombre</label><input class="text" type="text" name="nombre" placeholder="Nombre" th:field="*{nombre}">
+	          <label class="lab">Tipo</label><input class="text" type="text" name="tipo" placeholder="Tipo" th:field="*{tipo}">
+	          <div class="wthree-text">
+	            <div class="clear"> </div>
+	          </div>
+	          <input type="submit" value="EDITAR">
+        	</form>
+	    <button class="boton" th:onclick="window.location.href='/public/index'">
+	       <span>CANCELAR</span>
+	    </button>
+      </div>
+    </div>
+  </div>
+  <!-- //main -->
+</body>
+
+</html>

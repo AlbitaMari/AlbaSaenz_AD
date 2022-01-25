@@ -9,5 +9,5 @@ import com.ad.gestionOfertas.entities.Ciclos;
 
 @Repository("ciclosRepository")
 public interface CiclosRepository extends JpaRepository<Ciclos,Serializable> {
-
+	Ciclos findCicloById(int id);
 }
