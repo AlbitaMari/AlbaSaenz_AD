@@ -110,11 +110,13 @@ public class AdminController {
 		return "redirect:/admin/listalumnos";
 	}
 	
-	@GetMapping("/create")
-	public ModelAndView createForm() {
+	@GetMapping("/create/{role}")
+	public ModelAndView createForm(@PathVariable(name="role")String role) {
 		LOG.info("METHOD: createAlumnosForm()");
 		ModelAndView mav = new ModelAndView(ViewConstant.CREATEA);
-		mav.addObject("usuario", new Usuarios());
+		Usuarios usuario = new Usuarios();
+		usuario.setRole(role);
+		mav.addObject("usuario", usuario);
 		return mav;
 	}
 	
@@ -122,35 +124,18 @@ public class AdminController {
 	public String createUser(@Valid @ModelAttribute Usuarios usuario) {
 		LOG.info("METHOD: createAlumnos()");
 		if(usuariosService.findUserByEmail(usuario.getEmail())==null) {
-			usuario.setEnabled(false);
-			usuario.setRole("ROL_ALUMNO");
 			usuariosService.createUser(usuariosService.transform(usuario));
-			return "redirect:/admin/listalumnos";
+			if(usuario.getRole().equals("ROL_ALUMNO")) {
+				return "redirect:/admin/listalumnos";
+			}else {
+				return "redirect:/admin/listrrhh";
+			}
+			
 		}else {
 			return "redirect:/admin/create";
 		}
 	}
-	@GetMapping("/creater")
-	public ModelAndView createrForm() {
-		LOG.info("METHOD: createRRHHForm()");
-		ModelAndView mav = new ModelAndView(ViewConstant.CREATER);
-		mav.addObject("usuario", new Usuarios());
-		return mav;
-	}
-	
-	@PostMapping("/creater")
-	public String createrUser(@Valid @ModelAttribute Usuarios usuario) {
-		LOG.info("METHOD: createRRHH()");
-		if(usuariosService.findUserByEmail(usuario.getEmail())==null) {
-			usuario.setEnabled(false);
-			usuario.setRole("ROL_RRHH");
-			usuariosService.createUser(usuariosService.transform(usuario));
-			return "redirect:/admin/listrrhh";
-		}else {
-			return "redirect:/admin/creater";
-		}
-	}
-	
+
 	@GetMapping("/ciclos")
 	public String listAllCiclos(Model model) {
 		LOG.info("METHOD: listCiclos()");

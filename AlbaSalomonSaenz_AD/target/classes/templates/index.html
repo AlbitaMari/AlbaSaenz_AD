@@ -34,9 +34,10 @@
 								<li class="dropdown"><a href="#" th:href="@{/public/index}"><span class="co">Inicio</span> <i class="bi bi-chevron-down"></i></a>
 								<li class="dropdown"><a href="#"><span class="co">Configuración </span> <i class="bi bi-chevron-down"></i></a>
 									<ul th:if="${session.usuario.role == 'ROL_ADMIN'}">
-										<li ><a th:href="@{/admin/listrrhh}">RRHH</a></li>
-										<li ><a th:href="@{/admin/listalumnos}">ALUMNOS</a></li>
-										<li ><a th:href="@{/admin/ciclos}">CICLOS</a></li>
+										<li ><a class="pd" th:href="@{/admin/listrrhh}">RRHH</a></li>
+										<li ><a class="pd" th:href="@{/admin/listalumnos}">ALUMNOS</a></li>
+										<li ><a class="pd" th:href="@{/admin/ciclos}">CICLOS</a></li>
+										<li ><a class="pd" th:href="@{/admin/noticias}">NOTICIAS</a></li>
 									</ul>
 									<ul th:if="${session.usuario.role == 'ROL_ALUMNO'}">
 										<li><a class="co" href="#" th:href="@{/users/editUser}">Editar Perfil</a></li>

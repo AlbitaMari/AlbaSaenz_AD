@@ -15,7 +15,7 @@
 </head>
 <body>
  <div class="main-w3layouts wrapper">
-    <h1>Registro de Usuario</h1>
+    <h1>Registro de Usuario Empleado</h1>
     <div class="main-agileinfo">
       <div class="agileits-top">
         <form action="#" th:action="@{/admin/creater}" th:object="${usuario}" method="post">
@@ -25,6 +25,7 @@
           <label class="lab">Telefono</label><input class="text" type="text" name="telefono" placeholder="Teléfono" th:field="*{telefono}">
           <label class="lab">Contraseña</label><input class="text" type="password" name="password" placeholder="Password" th:field="*{password}">
           <label class="lab">Confirma tu contraseña</label><input class="text w3lpass" type="password" placeholder="Confirmar Password">
+          <input type="hidden" name="role" th:field="*{role}" />
           <div class="wthree-text">
             <div class="clear"> </div>
           </div>
