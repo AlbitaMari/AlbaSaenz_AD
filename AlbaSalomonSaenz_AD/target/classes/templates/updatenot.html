@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Registro de Usuario</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+ <div class="main-w3layouts wrapper">
+    <h1>Crear Noticia</h1>
+    <div class="main-agileinfo">
+      <div class="agileits-top">
+        <form enctype="multipart/form-data" th:action="@{/admin/updatenoticia/} + ${noticia.id}" th:object="${noticia}" method="post">
+          <label class="lab">Titulo</label><input type="text" name="titulo" placeholder="Titulo" th:field="*{titulo}">
+          <label class="lab">Descripcion</label><input class="text" type="text" name="descripcion" placeholder="Descripcion" th:field="*{descripcion}">
+          <label class="lab">Imagen</label><input class="text" type="file" name="imagen2" placeholder="Imagen" id="imagen">
+          <input type="hidden" name="imagen" th:field="*{imagen}" />
+          <label class="lab">CicloId</label>
+          <select th:field="*{cicloId.id}" class="text" name="cicloId">
+          	<option th:each="ciclo:${ciclos}"
+          		th:value="${ciclo.id}"
+          		th:text="${ciclo.nombre}"
+          		/>
+          </select>
+          <div class="wthree-text">
+            <div class="clear"> </div>
+          </div>
+          <input type="submit" value="EDITAR">
+        </form>
+	    <button class="boton" th:onclick="window.location.href='/public/index'">
+	       <span>CANCELAR</span>
+	    </button>
+      </div>
+    </div>
+  </div>
+  <!-- //main -->
+</body>
+</html>

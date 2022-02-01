@@ -22,7 +22,6 @@ public class CiclosServiceImpl implements CiclosService {
 	public List<CiclosModel> listAllCiclos() {
 		return ciclosRepository.findAll().stream().
 				map(c->transform(c)).collect(Collectors.toList());
-				
 	}
 
 	@Override

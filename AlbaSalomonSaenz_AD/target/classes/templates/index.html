@@ -42,6 +42,7 @@
 									<ul th:if="${session.usuario.role == 'ROL_ALUMNO'}">
 										<li><a class="co" href="#" th:href="@{/users/editUser}">Editar Perfil</a></li>
 									</ul>
+								<li th:if="${session.usuario.role == 'ROL_RRHH'}" class="dropdown"><a th:href="@{/users/ofertas}"><span class="co">Ofertas</span> </a></li>
 								<li class="dropdown"><a href="#"  th:href="@{/auth/login}"><span>Salir </span> <i class="bi bi-chevron-down"></i></a>
 								</ul>
 							</div>
@@ -54,6 +55,9 @@
       <section class="banner_main">
          <div class="container">
          	<h1>BIENVENIDO</h1>
+         	<div th:if="${session.usuario.role == 'ROL_RRHH'}">
+         		<h1>Hola</h1>
+         	</div>
 		</div>
 	</section>
 </body>

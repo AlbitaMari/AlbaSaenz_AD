@@ -37,7 +37,7 @@ public class Noticias {
 	private String imagen;
 	
 	@ManyToOne
-	@JoinColumn(name="cicloId")
+	@JoinColumn(name="ciclo_id")
 	private Ciclos cicloId;
 
 	public Noticias() {

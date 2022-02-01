@@ -1,5 +1,6 @@
 package com.ad.gestionOfertas.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -37,10 +38,10 @@ public class Ciclos {
 	private String tipo;
 
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="cicloId")
-	private List<Usuarios> alumnosList;
+	private List<Usuarios> alumnosList = new ArrayList<>();;
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="cicloId")
-	private List<Noticias> noticiasList;
+	private List<Noticias> noticiasList = new ArrayList<>();
 
 	public Ciclos() {
 		super();

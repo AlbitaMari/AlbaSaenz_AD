@@ -12,10 +12,12 @@ public class ViewConstant {
 	public static final String ALUMNOS = "adminalumnos";
 	public static final String UPDATE = "update";
 	public static final String CREATEA = "createalum";
-	public static final String CREATER = "createrrhh";
 	public static final String CICLOS = "ciclos";
 	public static final String UPDCIC = "updateciclos";
 	public static final String CREACI = "createciclo";
-	
+	public static final String NOTICIAS = "noticias";
+	public static final String CREANOT = "createnot";
+	public static final String UPDNOT = "updatenot";
+	public static final String OFERTAS = "ofertas";
 	
 }

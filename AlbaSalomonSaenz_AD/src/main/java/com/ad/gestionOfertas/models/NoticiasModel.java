@@ -8,19 +8,19 @@ public class NoticiasModel {
 	private String titulo;
 	private String descripcion;
 	private String imagen;
-	private Ciclos cicloID;
+	private Ciclos cicloId;
 
 	public NoticiasModel() {
 		super();
 	}
 
-	public NoticiasModel(int id, String titulo, String descripcion, String imagen, Ciclos cicloID) {
+	public NoticiasModel(int id, String titulo, String descripcion, String imagen, Ciclos cicloId) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.imagen = imagen;
-		this.cicloID = cicloID;
+		this.cicloId = cicloId;
 	}
 
 	public int getId() {
@@ -55,11 +55,11 @@ public class NoticiasModel {
 		this.imagen = imagen;
 	}
 
-	public Ciclos getCicloID() {
-		return cicloID;
+	public Ciclos getCicloId() {
+		return cicloId;
 	}
 
-	public void setCicloID(Ciclos cicloID) {
-		this.cicloID = cicloID;
+	public void setCicloId(Ciclos cicloId) {
+		this.cicloId = cicloId;
 	}
 }

@@ -1,5 +1,10 @@
 package com.ad.gestionOfertas.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ad.gestionOfertas.constant.ViewConstant;
@@ -189,8 +196,80 @@ public class AdminController {
 	public String listAllNoticias(Model model) {
 		LOG.info("METHOD: listNoticias()");
 		model.addAttribute("noticia", new Noticias());
-		model.addAttribute("ciclos",noticiasService.listAllNoticias());
-		return ViewConstant.CICLOS;
+		model.addAttribute("noticias",noticiasService.listAllNoticias());
+		return ViewConstant.NOTICIAS;
 	}
 	
+	@GetMapping("/createnoticias")
+	public ModelAndView createNoticiaForm() {
+		LOG.info("METHOD: createNoticiaForm()");
+		ModelAndView mav = new ModelAndView(ViewConstant.CREANOT);
+		mav.addObject("noticia", new Noticias());
+		mav.addObject("ciclo", new Ciclos());
+		mav.addObject("ciclos",ciclosService.listAllCiclos());
+		return mav;
+	}
+	
+	
+	@PostMapping("/createnoticias")
+	public String createNoticia(@Valid @ModelAttribute Noticias noticias, @RequestParam(name="imagen2",required=false) MultipartFile imagen) {
+		LOG.info("METHOD: createNoticia()");
+		if(!imagen.isEmpty()) {
+			Path directorioImagenes = Paths.get("src//main//resources//static/imgs");
+			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+			
+			try {
+				byte[] bytesImg = imagen.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				Files.write(rutaCompleta,bytesImg);
+				noticias.setImagen(imagen.getOriginalFilename());
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
+		noticiasService.createNoticia(noticiasService.transform(noticias));
+		return "redirect:/admin/noticias";
+	}
+	
+	@GetMapping("/deletenoticia/{id}")
+	public String deleteNoticia(Model model, @PathVariable(name="id")int id) throws Exception {
+		LOG.info("METHOD: deleteNoticia()");
+		Noticias noticia = noticiasService.findNoticiasById(id);
+		noticiasService.deleteNoticias(id);
+		return "redirect:/admin/noticias";
+	}
+	
+	@GetMapping("/updatenoticia/{id}")
+	public String updateNoticiaForm(Model model, @PathVariable(name="id")int id) {
+		LOG.info("METHOD: updateNoticiaForm()");
+		Noticias noticia = noticiasService.findNoticiasById(id);
+		model.addAttribute("noticia",noticia);
+		model.addAttribute("editMode",true);
+		model.addAttribute("ciclos",ciclosService.listAllCiclos());
+		return ViewConstant.UPDNOT;
+	}
+
+	@PostMapping("/updatenoticia/{id}")
+	public String updateNoticias(@Valid @ModelAttribute("noticia") Noticias noticias,@PathVariable(name="id")int id,
+			@RequestParam(name="imagen2",required=false) MultipartFile imagen) {
+		LOG.info("METHOD: updateNoticias()");
+		Noticias noticia = noticiasService.findNoticiasById(id);
+		if(!imagen.isEmpty()) {
+			Path directorioImagenes = Paths.get("src//main//resources//static/imgs");
+			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+			
+			try {
+				byte[] bytesImg = imagen.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				Files.write(rutaCompleta,bytesImg);
+				noticias.setImagen(imagen.getOriginalFilename());
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
+		noticiasService.updateNoticias(noticiasService.transform(noticias));
+		return "redirect:/admin/noticias";
+	}
 }

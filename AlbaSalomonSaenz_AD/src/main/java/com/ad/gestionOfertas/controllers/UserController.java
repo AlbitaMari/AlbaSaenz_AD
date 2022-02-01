@@ -12,11 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ad.gestionOfertas.constant.ViewConstant;
+import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.entities.Usuarios;
+import com.ad.gestionOfertas.models.UsuariosModel;
+import com.ad.gestionOfertas.services.OfertasService;
 import com.ad.gestionOfertas.services.UsuariosService;
 
 @Controller
@@ -27,6 +31,9 @@ public class UserController {
 	
 	@Autowired
 	private UsuariosService usuariosService;
+	
+	@Autowired
+	private OfertasService ofertasService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -51,5 +58,16 @@ public class UserController {
 		usuariosService.editUser(usuariosService.transform(usuario));
 		
 		return "redirect:/public/index";
+	}
+	
+	@GetMapping("/ofertas")
+	public String listOfertas(Model model,Authentication auth, HttpSession session) {
+		LOG.info("METHOD: listOfertas()");
+		String username = auth.getName();
+		Usuarios usuario = usuariosService.findUserByEmail(username);
+		session.setAttribute("usuario", usuario);
+		
+		model.addAttribute("ofertas",ofertasService.listAllOfertasByRrhh(usuariosService.transform(usuario)));
+		return ViewConstant.OFERTAS;
 	}
 }
