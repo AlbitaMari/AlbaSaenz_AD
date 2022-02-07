@@ -17,7 +17,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "ofertas")
@@ -43,14 +46,14 @@ public class Ofertas {
 	@Column(name = "requisitos")
 	private String requisitos;
 
-	@NotEmpty
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaMax", nullable = false)
-	private Date fechaMax;
-
-	@NotEmpty
+	@NotNull
 	@Column(name = "numCandidatos")
 	private int numCandidatos;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "fechaMax", nullable = false)
+	private Date fechaMax;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOferta")
 	private List<Inscritos> inscritosList;
@@ -66,15 +69,27 @@ public class Ofertas {
 	public Ofertas(int id,
 			@NotEmpty(message = "Debe introducir un titular") @Size(min = 1, max = 60, message = "El titulo debe tener de 1 a 60 caracteres") String titular,
 			@NotEmpty(message = "Debe introducir una descripcion") @Size(min = 1, max = 255, message = "El titulo debe tener de 1 a 255 caracteres") String descripcion,
-			@NotEmpty String requisitos, @NotEmpty Date fechaMax, @NotEmpty int numCandidatos,
-			 Usuarios rrhhid) {
+			@NotEmpty String requisitos, @NotNull int numCandidatos, Usuarios rrhhid) {
 		super();
 		this.id = id;
 		this.titular = titular;
 		this.descripcion = descripcion;
 		this.requisitos = requisitos;
-		this.fechaMax = fechaMax;
 		this.numCandidatos = numCandidatos;
+		this.rrhhid = rrhhid;
+	}
+
+	public Ofertas(int id,
+			@NotEmpty(message = "Debe introducir un titular") @Size(min = 1, max = 60, message = "El titulo debe tener de 1 a 60 caracteres") String titular,
+			@NotEmpty(message = "Debe introducir una descripcion") @Size(min = 1, max = 255, message = "El titulo debe tener de 1 a 255 caracteres") String descripcion,
+			@NotEmpty String requisitos, @NotNull int numCandidatos, Date fechaMax, Usuarios rrhhid) {
+		super();
+		this.id = id;
+		this.titular = titular;
+		this.descripcion = descripcion;
+		this.requisitos = requisitos;
+		this.numCandidatos = numCandidatos;
+		this.fechaMax = fechaMax;
 		this.rrhhid = rrhhid;
 	}
 
@@ -110,14 +125,6 @@ public class Ofertas {
 		this.requisitos = requisitos;
 	}
 
-	public Date getFechaMax() {
-		return fechaMax;
-	}
-
-	public void setFechaMax(Date fechaMax) {
-		this.fechaMax = fechaMax;
-	}
-
 	public int getNumCandidatos() {
 		return numCandidatos;
 	}
@@ -132,6 +139,14 @@ public class Ofertas {
 
 	public void setRrhhid(Usuarios rrhhid) {
 		this.rrhhid = rrhhid;
+	}
+
+	public Date getFechaMax() {
+		return fechaMax;
+	}
+
+	public void setFechaMax(Date fechaMax) {
+		this.fechaMax = fechaMax;
 	}
 	
 }

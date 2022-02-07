@@ -5,11 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +27,9 @@ import com.ad.gestionOfertas.constant.ViewConstant;
 import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Noticias;
 import com.ad.gestionOfertas.entities.Usuarios;
-import com.ad.gestionOfertas.models.UsuariosModel;
 import com.ad.gestionOfertas.services.CiclosService;
 import com.ad.gestionOfertas.services.NoticiasService;
+import com.ad.gestionOfertas.services.OfertasService;
 import com.ad.gestionOfertas.services.UsuariosService;
 
 @Controller
@@ -44,6 +46,9 @@ public class AdminController {
 	
 	@Autowired
 	public NoticiasService noticiasService;
+	
+	@Autowired
+	public OfertasService ofertasService;
 	
 	@GetMapping("/listrrhh")
 	public String listRrhh(Model model) {
@@ -272,4 +277,19 @@ public class AdminController {
 		noticiasService.updateNoticias(noticiasService.transform(noticias));
 		return "redirect:/admin/noticias";
 	}
+	
+	@GetMapping("/ofertas")
+	public String listOfertas(Model model) {
+		LOG.info("METHOD: listOfertas()");
+		model.addAttribute("ofertas",ofertasService.listAllOfertas());
+		return ViewConstant.OFERTAS;
+	}
+	
+	@GetMapping("/deleteofertas/{id}")
+	public String deleteOfertas(Model model, @PathVariable(name="id")int id) throws Exception {
+		LOG.info("METHOD: deleteOfertas()");
+		ofertasService.deleteOfertas(id);
+		return "redirect:/admin/ofertas";
+	}
+	
 }

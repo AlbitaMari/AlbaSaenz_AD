@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ad.gestionOfertas.entities.Ofertas;
-import com.ad.gestionOfertas.entities.Usuarios;
 import com.ad.gestionOfertas.models.OfertasModel;
 import com.ad.gestionOfertas.models.UsuariosModel;
 import com.ad.gestionOfertas.repositories.OfertasRepository;
@@ -41,6 +40,31 @@ public class OfertasServiceImpl implements OfertasService {
 		return modelMapper.map(ofertas, OfertasModel.class);
 	}
 
+	@Override
+	public Ofertas createOferta(OfertasModel ofertasModel) {
+		return ofertasRepository.save(transform(ofertasModel));
+	}
 
+	@Override
+	public Ofertas findOfertaById(int id) {
+		return ofertasRepository.findOfertaById(id);
+	}
+
+	@Override
+	public void deleteOfertas(int id) {
+		Ofertas oferta = ofertasRepository.findOfertaById(id);
+		ofertasRepository.delete(oferta);
+	}
+
+	@Override
+	public Ofertas updateOfertas(OfertasModel ofertasModel) {
+		return ofertasRepository.save(transform(ofertasModel));
+	}
+
+	@Override
+	public List<OfertasModel> listAllOfertas() {
+		return ofertasRepository.findAll().stream().
+				map(c->transform(c)).collect(Collectors.toList());
+	}
 
 }

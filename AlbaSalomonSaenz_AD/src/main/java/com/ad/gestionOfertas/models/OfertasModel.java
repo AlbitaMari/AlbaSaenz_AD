@@ -10,7 +10,7 @@ public class OfertasModel {
 	private String titular;
 	private String descripcion;
 	private String requisitos;
-	private Date fechamax;
+	private Date fechaMax;
 	private int numCandidatos;
 	private Usuarios rrhhid;
 	
@@ -19,14 +19,25 @@ public class OfertasModel {
 		super();
 	}
 	
-	public OfertasModel(int id, String titular, String descripcion, String requisitos, Date fechamax, int numCandidatos,
+	public OfertasModel(int id, String titular, String descripcion, String requisitos, int numCandidatos,
 			Usuarios rrhhid) {
 		super();
 		this.id = id;
 		this.titular = titular;
 		this.descripcion = descripcion;
 		this.requisitos = requisitos;
-		this.fechamax = fechamax;
+		this.numCandidatos = numCandidatos;
+		this.rrhhid = rrhhid;
+	}
+
+	public OfertasModel(int id, String titular, String descripcion, String requisitos, Date fechaMax, int numCandidatos,
+			Usuarios rrhhid) {
+		super();
+		this.id = id;
+		this.titular = titular;
+		this.descripcion = descripcion;
+		this.requisitos = requisitos;
+		this.fechaMax = fechaMax;
 		this.numCandidatos = numCandidatos;
 		this.rrhhid = rrhhid;
 	}
@@ -63,14 +74,6 @@ public class OfertasModel {
 		this.requisitos = requisitos;
 	}
 
-	public Date getFechamax() {
-		return fechamax;
-	}
-
-	public void setFechamax(Date fechamax) {
-		this.fechamax = fechamax;
-	}
-
 	public int getNumCandidatos() {
 		return numCandidatos;
 	}
@@ -86,6 +89,13 @@ public class OfertasModel {
 	public void setRrhhid(Usuarios rrhhid) {
 		this.rrhhid = rrhhid;
 	}
-	
+
+	public Date getFechaMax() {
+		return fechaMax;
+	}
+
+	public void setFechaMax(Date fechaMax) {
+		this.fechaMax = fechaMax;
+	}
 	
 }

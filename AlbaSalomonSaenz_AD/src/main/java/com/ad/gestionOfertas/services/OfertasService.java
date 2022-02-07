@@ -11,5 +11,10 @@ public interface OfertasService {
 	List<Ofertas> listAllOfertasByRrhh(UsuariosModel rrhh);
 	Ofertas transform(OfertasModel ofertasModel);
 	OfertasModel transform(Ofertas ofertas);
+	Ofertas createOferta(OfertasModel ofertasModel);
+	Ofertas findOfertaById(int id);
+	public void deleteOfertas(int id);
+	Ofertas updateOfertas(OfertasModel ofertasModel);
+	List<OfertasModel> listAllOfertas();
 	
 }

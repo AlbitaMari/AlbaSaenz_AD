@@ -70,7 +70,7 @@ public class Usuarios {
 	private String role;
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="rrhhid")
-	List <Ofertas> rrhh = new ArrayList<>();
+	List <Ofertas> ofertasList = new ArrayList<>();
 
 	public Usuarios() {
 		super();

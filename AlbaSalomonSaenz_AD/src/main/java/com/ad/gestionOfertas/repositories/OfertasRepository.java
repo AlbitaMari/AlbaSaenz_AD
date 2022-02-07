@@ -13,6 +13,6 @@ import com.ad.gestionOfertas.entities.Usuarios;
 public interface OfertasRepository  extends JpaRepository<Ofertas,Serializable>{
 	
 	public List<Ofertas> findOfertasByRrhhid(Usuarios rrhhid);
-	
+	Ofertas findOfertaById(int id);
 	
 }

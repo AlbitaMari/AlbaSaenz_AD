@@ -38,7 +38,7 @@ public class Ciclos {
 	private String tipo;
 
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="cicloId")
-	private List<Usuarios> alumnosList = new ArrayList<>();;
+	private List<Usuarios> alumnosList = new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="cicloId")
 	private List<Noticias> noticiasList = new ArrayList<>();
