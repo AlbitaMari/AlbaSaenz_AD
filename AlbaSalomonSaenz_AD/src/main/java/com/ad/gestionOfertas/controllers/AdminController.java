@@ -1,5 +1,6 @@
 package com.ad.gestionOfertas.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -231,9 +232,13 @@ public class AdminController {
 			
 			try {
 				byte[] bytesImg = imagen.getBytes();
-				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				String imagen_con_extension = imagen.getOriginalFilename();
+				String nombre = imagen_con_extension.substring(0,imagen_con_extension.indexOf('.'));
+				String extension = imagen_con_extension.substring(imagen_con_extension.lastIndexOf('.'));
+				String nombre_imagen = nombre + "-" + System.currentTimeMillis() + extension;
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + nombre_imagen);
 				Files.write(rutaCompleta,bytesImg);
-				noticias.setImagen(imagen.getOriginalFilename());
+				noticias.setImagen(nombre_imagen);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -269,12 +274,18 @@ public class AdminController {
 		if(!imagen.isEmpty()) {
 			Path directorioImagenes = Paths.get("src//main//resources//static/imgs");
 			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+			File img_antigua = new File(rutaAbsoluta + "//" + noticia.getImagen());
+			img_antigua.delete();
 			
 			try {
 				byte[] bytesImg = imagen.getBytes();
-				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				String imagen_con_extension = imagen.getOriginalFilename();
+				String nombre = imagen_con_extension.substring(0,imagen_con_extension.indexOf('.'));
+				String extension = imagen_con_extension.substring(imagen_con_extension.lastIndexOf('.'));
+				String nombre_imagen = nombre + "-" + System.currentTimeMillis() + extension;
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + nombre_imagen);
 				Files.write(rutaCompleta,bytesImg);
-				noticias.setImagen(imagen.getOriginalFilename());
+				noticias.setImagen(nombre_imagen);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
