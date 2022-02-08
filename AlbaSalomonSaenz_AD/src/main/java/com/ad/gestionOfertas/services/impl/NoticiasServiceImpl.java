@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Noticias;
 import com.ad.gestionOfertas.models.NoticiasModel;
 import com.ad.gestionOfertas.repositories.NoticiasRepository;
@@ -59,5 +59,10 @@ public class NoticiasServiceImpl implements NoticiasService{
 	@Override
 	public Noticias updateNoticias(NoticiasModel noticiasModel) {
 		return noticiasRepository.save(transform(noticiasModel));
+	}
+
+	@Override
+	public List<Noticias> findByCicloID(Ciclos cicloId) {
+		return noticiasRepository.findNoticiaByCicloId(cicloId);
 	}
 }

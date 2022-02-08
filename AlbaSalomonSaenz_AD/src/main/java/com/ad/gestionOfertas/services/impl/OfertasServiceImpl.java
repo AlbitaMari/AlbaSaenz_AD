@@ -67,4 +67,8 @@ public class OfertasServiceImpl implements OfertasService {
 				map(c->transform(c)).collect(Collectors.toList());
 	}
 
+	@Override
+	public List<Ofertas> listAll() {
+		return ofertasRepository.findAll();
+	}
 }

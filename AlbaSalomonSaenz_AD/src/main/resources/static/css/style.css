@@ -1119,3 +1119,59 @@ button {
 .pd{
 	padding-top:15px;
 }
+.df{
+	display:flex;
+}
+.card-title{
+	background-color:#3c763d;
+	padding: 10px;
+	border-radius: 5px;
+}
+.card-title span{
+	color: white;
+	padding-left: 10px;
+}
+.card-title h3{
+	color: white;
+}
+.card-body{
+	background-color: #3c2929;
+	padding: 10px;
+}
+
+.card-body span{
+	color: white;
+	padding-left: 10px;
+}
+.card-body h3{
+	color: white;
+}
+.card-footer{
+	background-color: #3c763d;
+	padding: 10px;
+	border-radius: 5px;
+}
+.card-footer span{
+	color: white;
+	padding-left: 10px;
+}
+.card-footer h3{
+	color: white;
+}
+.card-padding{
+	padding:30px;
+}
+.areto{
+	padding: 10px;
+	background-color: #3c763d;
+	color: white;
+	border-radius: 3px;
+}
+.areto:hover{
+	color: #8dc26f;
+}
+.pcha{
+	color: white;
+	font-size:bold;
+	text-align: center;
+}

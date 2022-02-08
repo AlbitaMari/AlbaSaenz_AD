@@ -54,12 +54,102 @@
 		</div>
 	</header>
       <section class="banner_main">
-         <div class="container">
-         	<h1>BIENVENIDO</h1>
-         	<div th:if="${session.usuario.role == 'ROL_RRHH'}">
-         		<h1>Hola</h1>
+      <div class="container" th:if="${session.usuario.role == 'ROL_ALUMNO'}">
+      <h2 class="pcha">NOTICIAS RELACIONADAS CON SU CICLO</h2>
+      </div>
+      <div th:each="noticia:${noticias}">
+         <div class="container card-padding">
+         		 <div  class="row df card-title">
+	         		<div class="col-6">
+	         			<h3>Titulo :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${noticia.titulo}"> </span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-body">
+	         		<div class="col-6">
+	         			<h3>Id :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${noticia.id}"> </span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-body">
+	         		<div class="col-6">
+	         			<h3>Descripción :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${noticia.descripcion}"> </span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-body">
+	         		<div class="col-6">
+	         			<h3>Imagen :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd"><img th:src="@{/imgs/} + ${noticia.imagen}" /></span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-footer">
+	         		<div class="col-6">
+	         			<h3>Ciclo :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${noticia.cicloId.nombre}"></span>
+	         		</div>
+         		</div>
          	</div>
+         </div>
+           <div th:if="${session.usuario.role == 'ROL_ALUMNO'}" class="container">
+      	 <p>
+      	 	<a class="areto" data-toggle="collapse" href="#footwear" aria-expanded="false" aria-controls="footwear">Ver noticias de otros ciclos</a>
+		</p>
+		<div class="collapse pd" id="footwear">
+			<div class="pd" th:each="hola:${holas}" th:if="${session.usuario.cicloId} != ${hola.cicloId}">
+				<div class="row df card-title">
+	         		<div class="col-6">
+	         			<h3>Titulo :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${hola.titulo}"> </span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-body">
+	         		<div class="col-6">
+	         			<h3>Id :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${hola.id}"> </span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-body">
+	         		<div class="col-6">
+	         			<h3>Descripción :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${hola.descripcion}"> </span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-body">
+	         		<div class="col-6">
+	         			<h3>Imagen :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd"><img th:src="@{/imgs/} + ${hola.imagen}" /></span>
+	         		</div>
+         		</div>
+         		<div  class="row df card-footer">
+	         		<div class="col-6">
+	         			<h3>Ciclo :</h3>
+	         		</div>
+	         		<div class="col-6 fr">
+	         			<span class="form-italic wd" th:text="${hola.cicloId.nombre}"></span>
+	         		</div>
+         		</div>
+			 </div>
 		</div>
+      </div>
 	</section>
 </body>
 </html>

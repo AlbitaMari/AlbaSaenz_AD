@@ -16,5 +16,6 @@ public interface OfertasService {
 	public void deleteOfertas(int id);
 	Ofertas updateOfertas(OfertasModel ofertasModel);
 	List<OfertasModel> listAllOfertas();
+	List<Ofertas> listAll();
 	
 }

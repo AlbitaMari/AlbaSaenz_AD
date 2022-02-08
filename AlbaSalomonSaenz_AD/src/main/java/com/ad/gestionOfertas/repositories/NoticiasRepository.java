@@ -13,4 +13,5 @@ import com.ad.gestionOfertas.entities.Noticias;
 public interface NoticiasRepository  extends JpaRepository<Noticias,Serializable>{
 		Noticias findNoticiaById(int id);
 		public List<Noticias> findByCicloId(Ciclos ciclo);
+		List<Noticias> findNoticiaByCicloId(Ciclos cicloId);
 }

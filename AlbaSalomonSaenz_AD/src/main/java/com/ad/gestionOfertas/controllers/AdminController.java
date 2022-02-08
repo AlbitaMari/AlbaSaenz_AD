@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -26,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ad.gestionOfertas.constant.ViewConstant;
 import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Noticias;
+import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.entities.Usuarios;
 import com.ad.gestionOfertas.services.CiclosService;
 import com.ad.gestionOfertas.services.NoticiasService;
@@ -290,6 +296,28 @@ public class AdminController {
 		LOG.info("METHOD: deleteOfertas()");
 		ofertasService.deleteOfertas(id);
 		return "redirect:/admin/ofertas";
+	}
+	
+	@GetMapping("/ofertasfilters")
+	public String listOfertasFilters(Model model) {
+		LOG.info("METHOD: listOfertasFilters()");
+		Calendar fecha = new GregorianCalendar();
+		System.out.println(fecha);
+		List<Ofertas> ofertas = ofertasService.listAll();
+		List<Ofertas> ofertasFilter = new ArrayList<Ofertas>();
+		for(Ofertas oferta : ofertas) {
+			if(fecha.after(filterDate(oferta.getFechaMax()))) {
+				ofertasFilter.add(oferta);
+			}
+		}
+		model.addAttribute("ofertas",ofertasFilter);
+		return ViewConstant.OFERTAS;
+	}
+
+	public static Calendar filterDate(Date date){ 
+		  Calendar cal = Calendar.getInstance();
+		  cal.setTime(date);
+		  return cal;
 	}
 	
 }

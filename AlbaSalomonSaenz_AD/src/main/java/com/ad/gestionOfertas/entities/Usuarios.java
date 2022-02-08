@@ -200,13 +200,13 @@ public class Usuarios {
 	}
 
 
-	public Ciclos getCicloID() {
+	public Ciclos getCicloId() {
 		return cicloId;
 	}
 
 
-	public void setCicloID(Ciclos cicloID) {
-		this.cicloId = cicloID;
+	public void setCicloID(Ciclos cicloId) {
+		this.cicloId = cicloId;
 	}
 
 
