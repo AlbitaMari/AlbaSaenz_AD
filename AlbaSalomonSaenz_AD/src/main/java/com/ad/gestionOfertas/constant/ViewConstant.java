@@ -19,6 +19,7 @@ public class ViewConstant {
 	public static final String CREANOT = "createnot";
 	public static final String UPDNOT = "updatenot";
 	public static final String OFERTAS = "ofertas";
+	public static final String OFERTASB = "ofertasb";
 	public static final String CREAOF = "create_ofertas";
 	public static final String UPDOF = "update_ofertas";
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.entities.Usuarios;
 
@@ -14,5 +15,5 @@ public interface OfertasRepository  extends JpaRepository<Ofertas,Serializable>{
 	
 	public List<Ofertas> findOfertasByRrhhid(Usuarios rrhhid);
 	Ofertas findOfertaById(int id);
-	
+	public List<Ofertas> findOfertasByCicloId(Ciclos cicloId);
 }

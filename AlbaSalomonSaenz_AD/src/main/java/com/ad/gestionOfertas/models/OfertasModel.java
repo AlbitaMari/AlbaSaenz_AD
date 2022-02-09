@@ -2,6 +2,7 @@ package com.ad.gestionOfertas.models;
 
 import java.util.Date;
 
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Usuarios;
 
 public class OfertasModel {
@@ -13,25 +14,14 @@ public class OfertasModel {
 	private Date fechaMax;
 	private int numCandidatos;
 	private Usuarios rrhhid;
-	
+	private Ciclos cicloId;
 	
 	public OfertasModel() {
 		super();
 	}
-	
-	public OfertasModel(int id, String titular, String descripcion, String requisitos, int numCandidatos,
-			Usuarios rrhhid) {
-		super();
-		this.id = id;
-		this.titular = titular;
-		this.descripcion = descripcion;
-		this.requisitos = requisitos;
-		this.numCandidatos = numCandidatos;
-		this.rrhhid = rrhhid;
-	}
 
 	public OfertasModel(int id, String titular, String descripcion, String requisitos, Date fechaMax, int numCandidatos,
-			Usuarios rrhhid) {
+			Usuarios rrhhid, Ciclos cicloId) {
 		super();
 		this.id = id;
 		this.titular = titular;
@@ -40,6 +30,7 @@ public class OfertasModel {
 		this.fechaMax = fechaMax;
 		this.numCandidatos = numCandidatos;
 		this.rrhhid = rrhhid;
+		this.cicloId = cicloId;
 	}
 
 	public int getId() {
@@ -96,6 +87,14 @@ public class OfertasModel {
 
 	public void setFechaMax(Date fechaMax) {
 		this.fechaMax = fechaMax;
+	}
+
+	public Ciclos getCicloId() {
+		return cicloId;
+	}
+
+	public void setCicloId(Ciclos cicloId) {
+		this.cicloId = cicloId;
 	}
 	
 }

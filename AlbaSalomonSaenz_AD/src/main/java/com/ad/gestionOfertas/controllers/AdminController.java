@@ -34,6 +34,7 @@ import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Noticias;
 import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.entities.Usuarios;
+import com.ad.gestionOfertas.models.OfertasModel;
 import com.ad.gestionOfertas.services.CiclosService;
 import com.ad.gestionOfertas.services.NoticiasService;
 import com.ad.gestionOfertas.services.OfertasService;
@@ -296,9 +297,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/ofertas")
-	public String listOfertas(Model model) {
-		LOG.info("METHOD: listOfertas()");
-		model.addAttribute("ofertas",ofertasService.listAllOfertas());
+	public String listOfertasByAdmin(Model model) {
+		LOG.info("METHOD: listOfertasAdmin");
+		model.addAttribute("ofertas", ofertasService.listAll());
 		return ViewConstant.OFERTAS;
 	}
 	

@@ -2,7 +2,9 @@ package com.ad.gestionOfertas.services;
 
 import java.util.List;
 
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Ofertas;
+import com.ad.gestionOfertas.models.CiclosModel;
 import com.ad.gestionOfertas.models.OfertasModel;
 import com.ad.gestionOfertas.models.UsuariosModel;
 
@@ -17,5 +19,6 @@ public interface OfertasService {
 	Ofertas updateOfertas(OfertasModel ofertasModel);
 	List<OfertasModel> listAllOfertas();
 	List<Ofertas> listAll();
+	List<Ofertas> listAllOfertasByCicloId(CiclosModel ciclo);
 	
 }

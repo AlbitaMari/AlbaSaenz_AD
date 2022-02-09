@@ -42,6 +42,9 @@ public class Ciclos {
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="cicloId")
 	private List<Noticias> noticiasList = new ArrayList<>();
+	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="cicloId")
+	private List<Ofertas> ofertasList = new ArrayList<>();
 
 	public Ciclos() {
 		super();

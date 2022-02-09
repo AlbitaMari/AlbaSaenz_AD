@@ -1116,6 +1116,10 @@ button {
 	padding:20px;
 	text-align:center;
 }
+.ps{
+	margin-left: 10px;
+}
+
 .pd{
 	padding-top:15px;
 }
@@ -1170,8 +1174,20 @@ button {
 .areto:hover{
 	color: #8dc26f;
 }
+
 .pcha{
 	color: white;
 	font-size:bold;
 	text-align: center;
+}
+
+.fl{
+	float:left;
+}
+
+.fr{
+	float:rigth;
+}
+.pos{
+	display:grid;
 }

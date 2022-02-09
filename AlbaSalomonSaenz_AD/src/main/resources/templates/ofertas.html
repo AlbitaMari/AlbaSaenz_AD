@@ -58,7 +58,16 @@
 	<section id="crud" class="banner_main">
 		<div class="container">
 			<h1>OFERTAS</h1>
-			<a class="pad" th:href="@{/admin/ofertasfilters}">Proyectos con fecha anterior a hoy</a>
+			<h2>FILTRAR OFERTAS POR CICLOS</h2>
+			<form th:action="@{/users/showofertasfilters}" method="get">
+				<div th:if="${session.usuario.role == 'ROL_ALUMNO'}" class="row">
+					<th:block th:each="ciclo:${ciclos}">
+						<input type="checkbox" id="cicloId" name="cicloIds" th:value="${ciclo.id}"/>
+						<label th:text="${ciclo.nombre}"></label><br>
+					</th:block>
+				</div>
+				<input type="submit" value="Buscar"/>
+			</form>
 			<table class="table pt-5">
 				<thead>
 					<tr>
@@ -68,6 +77,8 @@
 						<th>Requisitos</th>
 						<th>Fecha Máxima</th>
 						<th>Num.Candidatos</th>
+						<th>Ciclo</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -78,6 +89,7 @@
 						<td th:text="${oferta.requisitos}"></td>
 						<td th:text="${oferta.fechaMax}"></td>
 						<td th:text="${oferta.numCandidatos}"></td>
+						<td th:text="${oferta.cicloId.nombre}"></td>
 						<td>
 						 	<a th:if="${session.usuario.role == 'ROL_RRHH'}" th:href="@{/users/updateoferta/} + ${oferta.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> 
 							<a th:if="${session.usuario.role == 'ROL_RRHH'}" th:href="@{/users/deleteofertas/} + ${oferta.id}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
@@ -88,6 +100,8 @@
 				</tbody>
 			</table>
 			<a th:if="${session.usuario.role == 'ROL_RRHH'}" th:href="@{/users/createofertas}">Crear Oferta</a>
+			<a th:if="${session.usuario.role == 'ROL_ADMIN'}" class="pad" th:href="@{/admin/ofertasfilters}">Ofertas con fecha anterior a hoy</a>
+			<a th:if="${session.usuario.role == 'ROL_ADMIN'}" class="pad" th:href="@{/admin/ofertas}">Mostrar todas</a>
 		</div>
 	</section>
 </body>

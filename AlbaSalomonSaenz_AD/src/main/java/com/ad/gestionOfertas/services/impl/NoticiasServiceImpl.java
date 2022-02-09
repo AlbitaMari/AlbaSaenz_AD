@@ -38,7 +38,7 @@ public class NoticiasServiceImpl implements NoticiasService{
 		return noticiasRepository.findAll().stream().
 				map(c->transform(c)).collect(Collectors.toList());
 	}
-
+	
 	@Override
 	public Noticias createNoticia(NoticiasModel noticiasModel) {
 		return noticiasRepository.save(transform(noticiasModel));

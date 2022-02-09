@@ -1,5 +1,8 @@
 package com.ad.gestionOfertas.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,11 +18,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ad.gestionOfertas.constant.ViewConstant;
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.entities.Usuarios;
+import com.ad.gestionOfertas.services.CiclosService;
 import com.ad.gestionOfertas.services.OfertasService;
 import com.ad.gestionOfertas.services.UsuariosService;
 
@@ -34,6 +40,9 @@ public class UserController {
 	
 	@Autowired
 	private OfertasService ofertasService;
+	
+	@Autowired
+	private CiclosService ciclosService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -65,7 +74,6 @@ public class UserController {
 		String username = auth.getName();
 		Usuarios usuario = usuariosService.findUserByEmail(username);
 		session.setAttribute("usuario", usuario);
-		
 		model.addAttribute("ofertas",ofertasService.listAllOfertasByRrhh(usuariosService.transform(usuario)));
 		return ViewConstant.OFERTAS;
 	}
@@ -79,9 +87,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/createofertas")
-	public ModelAndView createFormOfertastest(Authentication auth, HttpSession session) {
+	public ModelAndView createFormOfertastest() {
 		LOG.info("METHOD: createOfertasForm()");
 		ModelAndView mav = new ModelAndView(ViewConstant.CREAOF);
+		mav.addObject("ciclos",ciclosService.listAllCiclos());
 		mav.addObject("oferta", new Ofertas());
 		return mav;
 	}
@@ -102,8 +111,7 @@ public class UserController {
 	public String updateOfertaForm(Model model, @PathVariable(name="id")int id) {
 		LOG.info("METHOD: updateOfertaForm()");
 		Ofertas oferta = ofertasService.findOfertaById(id);
-
-		
+		model.addAttribute("ciclos", ciclosService.listAllCiclos());
 		model.addAttribute("oferta",oferta);
 		model.addAttribute("editMode",true);
 		return ViewConstant.UPDOF;
@@ -120,5 +128,29 @@ public class UserController {
 		ofertas.setRrhhid(usuario);
 		ofertasService.updateOfertas(ofertasService.transform(ofertas));
 		return "redirect:/users/ofertas";
+	}
+	
+	@GetMapping("/showofertas")
+	public String listOfertasAlumno(Model model) {
+		LOG.info("METHOD: listOfertasAlumnos()");
+		model.addAttribute("ciclos",ciclosService.listAllCiclos());
+		model.addAttribute("ofertas",ofertasService.listAllOfertas());
+		return ViewConstant.OFERTAS;
+	}
+	
+	@GetMapping("/showofertasfilters")
+	public String listOfertasAlFilter(Model model,@RequestParam(name="cicloIds")List<Integer> cicloIds) {
+		LOG.info("METHOD: showOfertasFilters()");
+		List<Ofertas> ofertas = new ArrayList<Ofertas>();
+		for (int i=0;i<cicloIds.size();i++) {
+			Ciclos ciclo = ciclosService.findCicloById(cicloIds.get(i));
+			List<Ofertas> ofertas_aux = ofertasService.listAllOfertasByCicloId(ciclosService.transform(ciclo));
+			for(int j = 0; j < ofertas_aux.size(); j++){
+				ofertas.add(ofertas_aux.get(j));
+			}
+		}
+		model.addAttribute("ciclos",ciclosService.listAllCiclos());
+		model.addAttribute("ofertas",ofertas);
+		return ViewConstant.OFERTAS;
 	}
 }
