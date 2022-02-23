@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.models.CiclosModel;
 import com.ad.gestionOfertas.models.OfertasModel;
@@ -81,6 +82,11 @@ public class OfertasServiceImpl implements OfertasService {
 	@Override
 	public List<Ofertas> listAllOfertasByCicloId(CiclosModel ciclos) {
 		return ofertasRepository.findOfertasByCicloId(ciclosService.transform(ciclos));
+	}
+
+	@Override
+	public List<Ofertas> findOfertaByCicloId(Ciclos ciclo) {
+		return ofertasRepository.findOfertasByCicloId(ciclo);
 	}
 
 }

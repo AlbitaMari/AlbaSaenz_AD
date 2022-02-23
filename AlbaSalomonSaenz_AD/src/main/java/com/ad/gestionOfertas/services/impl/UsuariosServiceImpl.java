@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Usuarios;
 import com.ad.gestionOfertas.models.UsuariosModel;
 import com.ad.gestionOfertas.services.UsuariosService;
@@ -101,7 +102,10 @@ public class UsuariosServiceImpl implements UsuariosService {
 		return usuariosRepository.save(transform(usuariosModel));
 	}
 
-
+	@Override
+	public List<Usuarios> findUserByCicloId(Ciclos cicloId) {
+		return usuariosRepository.findUserByCicloId(cicloId);
+	}
 
 
 

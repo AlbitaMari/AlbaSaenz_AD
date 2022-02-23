@@ -1,6 +1,7 @@
 package com.ad.gestionOfertas.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ad.gestionOfertas.constant.ViewConstant;
 import com.ad.gestionOfertas.entities.Ciclos;
+import com.ad.gestionOfertas.entities.Inscritos;
 import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.entities.Usuarios;
 import com.ad.gestionOfertas.services.CiclosService;
+import com.ad.gestionOfertas.services.InscritosService;
 import com.ad.gestionOfertas.services.OfertasService;
 import com.ad.gestionOfertas.services.UsuariosService;
 
@@ -43,6 +46,9 @@ public class UserController {
 	
 	@Autowired
 	private CiclosService ciclosService;
+	
+	@Autowired
+	private InscritosService inscritosService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -131,10 +137,19 @@ public class UserController {
 	}
 	
 	@GetMapping("/showofertas")
-	public String listOfertasAlumno(Model model) {
+	public String listOfertasAlumno(Model model,Authentication auth, HttpSession session) {
 		LOG.info("METHOD: listOfertasAlumnos()");
+		String email = auth.getName();
+		Usuarios usuario = usuariosService.findUserByEmail(email);
+		session.setAttribute("usuario", usuario);
 		model.addAttribute("ciclos",ciclosService.listAllCiclos());
 		model.addAttribute("ofertas",ofertasService.listAllOfertas());
+		ArrayList<Integer> inscritosdef = new ArrayList<Integer>();
+		List<Inscritos> inscrito = inscritosService.listAllInscritosByAlumnoId(usuariosService.transform(usuario));
+		for(int i = 0 ; i < inscrito.size() ; i++) {
+			inscritosdef.add(inscrito.get(i).getIdOferta().getId());
+		}
+		model.addAttribute("inscritos",inscritosdef);
 		return ViewConstant.OFERTAS;
 	}
 	
@@ -152,5 +167,65 @@ public class UserController {
 		model.addAttribute("ciclos",ciclosService.listAllCiclos());
 		model.addAttribute("ofertas",ofertas);
 		return ViewConstant.OFERTAS;
+	}
+	
+	@GetMapping("/inscrib/{id}")
+	public String inscribOferta(Model model,Authentication auth, HttpSession session,@PathVariable(name="id")int id) {
+		LOG.info("METHOD: inscribOfertas()");
+		Ofertas oferta = ofertasService.findOfertaById(id);
+		model.addAttribute("ofertas",oferta);
+		return ViewConstant.INSCRIB;
+	}
+	
+	@PostMapping("/inscrib/{id}")
+	public String inscribirseOferta(Model model,Authentication auth, HttpSession session,@PathVariable(name="id")int id) {
+		LOG.info("METHOD: inscribirseOfertas()");
+		Ofertas oferta = ofertasService.findOfertaById(id);
+		String email = auth.getName();
+		Usuarios usuario = usuariosService.findUserByEmail(email);
+		session.setAttribute("usuario", usuario);
+		Inscritos inscrito = new Inscritos();
+		Date fecha = new Date();
+		inscrito.setFecha_inscripcion(fecha);
+		inscrito.setIdAlumno(usuario);
+		inscrito.setIdOferta(oferta);
+		ArrayList<Integer> inscritosdef = new ArrayList<Integer>();
+		List<Inscritos> inscritos = inscritosService.listAllInscritosByAlumnoId(usuariosService.transform(usuario));
+		for(int i = 0 ; i < inscritos.size() ; i++) {
+			inscritosdef.add(inscritos.get(i).getIdOferta().getId());
+		}
+		inscritosService.createInscrito(inscritosService.transform(inscrito));
+		model.addAttribute("inscritos",inscritosdef);
+		model.addAttribute("ciclos",ciclosService.listAllCiclos());
+		model.addAttribute("ofertas",ofertasService.listAllOfertas());
+		return ViewConstant.OFERTAS;
+	}
+	
+	@GetMapping("/inscritos")
+	public String inscritos(Model model,Authentication auth, HttpSession session) {
+		LOG.info("METHOD: listInscritos()");
+		String email = auth.getName();
+		Usuarios usuario = usuariosService.findUserByEmail(email);
+		session.setAttribute("usuario", usuario);
+		List<Inscritos> inscrito = inscritosService.listAllInscritosByAlumnoId(usuariosService.transform(usuario));
+		model.addAttribute("inscritos",inscrito);
+		return ViewConstant.INSCRITOS;
+	}
+	
+	@GetMapping("/ofertasreturn")
+	public String returnOfertas(Model model) {
+		LOG.info("METHOD: listOfertasAgain()");
+		model.addAttribute("ciclos",ciclosService.listAllCiclos());
+		model.addAttribute("ofertas",ofertasService.listAllOfertas());
+		return ViewConstant.OFERTAS;
+	}
+	
+	@GetMapping("/listusers/{id}")
+	public String listUserInOfer(Model model,@PathVariable(name="id")int id) {
+		LOG.info("METHOD: listOfertasAgain()");
+		Ofertas oferta = ofertasService.findOfertaById(id);
+		List<Inscritos> inscritos = inscritosService.listAllInscritosByIdOferta(ofertasService.transform(oferta));
+		model.addAttribute("inscritos",inscritos);
+		return ViewConstant.INSCRITOS_B;
 	}
 }

@@ -22,5 +22,9 @@ public class ViewConstant {
 	public static final String OFERTASB = "ofertasb";
 	public static final String CREAOF = "create_ofertas";
 	public static final String UPDOF = "update_ofertas";
+	public static final String INSCRIB = "inscrib_ofertas";
+	public static final String INSCRITOS = "inscritos";
+	public static final String INSCRITOS_B = "inscritosb";
+	public static final String INSCRIPCIONES = "inscripciones";
 	
 }

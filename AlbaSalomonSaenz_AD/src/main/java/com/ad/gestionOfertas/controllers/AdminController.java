@@ -31,11 +31,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ad.gestionOfertas.constant.ViewConstant;
 import com.ad.gestionOfertas.entities.Ciclos;
+import com.ad.gestionOfertas.entities.Inscritos;
 import com.ad.gestionOfertas.entities.Noticias;
 import com.ad.gestionOfertas.entities.Ofertas;
 import com.ad.gestionOfertas.entities.Usuarios;
+import com.ad.gestionOfertas.models.CiclosModel;
 import com.ad.gestionOfertas.models.OfertasModel;
+import com.ad.gestionOfertas.models.UsuariosModel;
 import com.ad.gestionOfertas.services.CiclosService;
+import com.ad.gestionOfertas.services.InscritosService;
 import com.ad.gestionOfertas.services.NoticiasService;
 import com.ad.gestionOfertas.services.OfertasService;
 import com.ad.gestionOfertas.services.UsuariosService;
@@ -57,6 +61,9 @@ public class AdminController {
 	
 	@Autowired
 	public OfertasService ofertasService;
+	
+	@Autowired
+	public InscritosService inscritosService;
 	
 	@GetMapping("/listrrhh")
 	public String listRrhh(Model model) {
@@ -332,4 +339,29 @@ public class AdminController {
 		  return cal;
 	}
 	
+	@GetMapping("/inscripciones")
+	public String inscripcionesList(Model model) {
+		LOG.info("METHOD: listInscripciones()");
+		List<Inscritos> inscripciones = inscritosService.listAll();
+		List<CiclosModel> ciclos = ciclosService.listAllCiclos();
+		model.addAttribute("inscripciones", inscripciones);
+		model.addAttribute("ciclos",ciclos);
+		return ViewConstant.INSCRIPCIONES;
+	}
+	
+	@GetMapping("/inscripcionesfilter")
+	public String inscripcionesFilterList(Model model,@RequestParam(name="cicloId")int cicloId) {
+		LOG.info("METHOD: listFilterInscripciones()");
+		System.out.println(cicloId);
+		Ciclos ciclo = ciclosService.findCicloById(cicloId);
+		List<Ofertas> ofertas_ciclo = ofertasService.findOfertaByCicloId(ciclo);
+		List<Inscritos> inscritos = new ArrayList<>();
+		for(int i=0; i < ofertas_ciclo.size() ; i++) {
+			inscritos.addAll(inscritosService.findInscritosByIdOferta(ofertas_ciclo.get(i)));
+		}
+		List<CiclosModel> ciclos = ciclosService.listAllCiclos();
+		model.addAttribute("ciclos",ciclos);
+		model.addAttribute("inscripciones",inscritos);
+		return ViewConstant.INSCRIPCIONES;
+	}
 }

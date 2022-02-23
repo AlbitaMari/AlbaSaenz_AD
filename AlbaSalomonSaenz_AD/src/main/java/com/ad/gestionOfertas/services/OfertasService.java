@@ -20,5 +20,6 @@ public interface OfertasService {
 	List<OfertasModel> listAllOfertas();
 	List<Ofertas> listAll();
 	List<Ofertas> listAllOfertasByCicloId(CiclosModel ciclo);
+	List<Ofertas> findOfertaByCicloId(Ciclos ciclo);
 	
 }

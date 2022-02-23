@@ -43,7 +43,12 @@
 									<ul th:if="${session.usuario.role == 'ROL_ALUMNO'}">
 										<li><a class="co" href="#" th:href="@{/users/editUser}">Editar Perfil</a></li>
 									</ul>
-								<li th:if="${session.usuario.role == 'ROL_RRHH'}" class="dropdown"><a th:href="@{/users/ofertas}"><span class="co">Ofertas</span> </a></li>
+									<li th:if="${session.usuario.role == 'ROL_ADMIN'}" class="dropdown"><a href="#"><span class="co">Inscripciones</span> <i class="bi bi-chevron-down"></i></a>
+										<ul>
+											<li ><a class="pd" th:href="@{/admin/inscripciones}">Listado de inscripciones</a></li>
+										</ul>
+									</li>
+								<li th:if="${session.usuario.role == 'ROL_RRHH'}" class="dropdown"><a th:href="@{/users/showofertas}"><span class="co">Ofertas</span> </a></li>
 								<li th:if="${session.usuario.role == 'ROL_ALUMNO'}" class="dropdown"><a th:href="@{/users/showofertas}"><span class="co">Ofertitas</span> </a></li>
 								<li class="dropdown"><a href="#"  th:href="@{/auth/login}"><span>Salir </span> <i class="bi bi-chevron-down"></i></a>
 								</ul>

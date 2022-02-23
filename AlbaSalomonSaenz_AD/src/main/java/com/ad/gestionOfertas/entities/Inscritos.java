@@ -32,7 +32,6 @@ public class Inscritos {
 	@JoinColumn(name="idOferta")
 	private Ofertas idOferta;
 	
-	@NotEmpty
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_inscripcion")
 	private Date fecha_inscripcion;

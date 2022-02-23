@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>B I E N V E N I D O</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body class="main-layout">
+	<!-- header inner -->
+	<header>
+		<div class="header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+						<div class="full">
+							<div class="center-desk">
+								<span class="wd fl" th:if="${session.usuario != null}">Bienvenido/a<span
+									class="form-italic wd" th:text="${session.usuario.nombre}"></span></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-9 col-lg-9 col-md-9">
+						<nav class="navbar navbar-expand-lg navbar-light bg-light">
+							<div class="collapse navbar-collapse fr"
+								id="navbarSupportedContent">
+								<ul class="navbar-nav mr-auto">
+									<li class="dropdown"><a href="#"
+										th:href="@{/public/index}"><span class="co">Inicio</span>
+											<i class="bi bi-chevron-down"></i></a>
+									<li class="dropdown"><a href="#"><span class="co">Configuración
+										</span> <i class="bi bi-chevron-down"></i></a>
+										<ul th:if="${session.usuario.role == 'ROL_ADMIN'}">
+											<li><a th:href="@{/admin/listrrhh}">RRHH</a></li>
+											<li><a th:href="@{/admin/listalumnos}">Alumnos</a></li>
+										</ul>
+										<ul th:if="${session.usuario.role == 'ROL_ALUMNO'}">
+											<li><a class="co" href="#" th:href="@{/users/editUser}">Editar
+													Perfil</a></li>
+										</ul>
+									<li class="dropdown"><a href="#" th:href="@{/auth/login}"><span>Salir
+										</span> <i class="bi bi-chevron-down"></i></a>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<section id="crud" class="banner_main">
+		<div class="container">
+			<h1>INSCRIBIRSE EN OFERTAS</h1>
+			<div class="row cnt" th:each="oferta:${ofertas}">
+				<div class="col-12">
+					<p>¿Estás seguro de inscribirte en la oferta <span th:text="${oferta.titular}"></span>?</p>
+				</div>
+				<div class="col-12">
+					<p>Descripcion: <span th:text="${oferta.descripcion}"></span></p>
+				</div>
+				<div class="col-12 pd">
+					<form th:action="@{/users/inscrib/} + ${oferta.id}" th:object="${oferta}" class="pos" method="POST">
+						<input type="submit" value="INSCRIBIRSE">
+					</form>
+					<a th:href="@{/public/index}">Cancelar</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

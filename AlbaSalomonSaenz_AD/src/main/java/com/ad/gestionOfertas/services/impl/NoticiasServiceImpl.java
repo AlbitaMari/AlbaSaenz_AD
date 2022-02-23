@@ -63,6 +63,6 @@ public class NoticiasServiceImpl implements NoticiasService{
 
 	@Override
 	public List<Noticias> findByCicloID(Ciclos cicloId) {
-		return noticiasRepository.findNoticiaByCicloId(cicloId);
+		return noticiasRepository.findNoticiaByCicloIdOrderByIdAsc(cicloId);
 	}
 }

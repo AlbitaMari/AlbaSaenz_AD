@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.ad.gestionOfertas.entities.Ciclos;
 import com.ad.gestionOfertas.entities.Usuarios;
 import com.ad.gestionOfertas.models.UsuariosModel;
 
@@ -22,4 +23,6 @@ public interface UsuariosService {
 	Usuarios deactiveUser(UsuariosModel usuarioModel);
 	Usuarios createUser(UsuariosModel usuarioModel);
 	Usuarios createrUser(UsuariosModel usuarioModel);
+	List<Usuarios> findUserByCicloId(Ciclos cicloId);
+	
 }

@@ -60,10 +60,10 @@
 			<h1>OFERTAS</h1>
 			<h2>FILTRAR OFERTAS POR CICLOS</h2>
 			<form th:action="@{/users/showofertasfilters}" method="get">
-				<div th:if="${session.usuario.role == 'ROL_ALUMNO'}" class="row">
+				<div th:if="${session.usuario.role == 'ROL_ALUMNO'}" class="row df">
 					<th:block th:each="ciclo:${ciclos}">
-						<input type="checkbox" id="cicloId" name="cicloIds" th:value="${ciclo.id}"/>
-						<label th:text="${ciclo.nombre}"></label><br>
+						<input class="pdd" type="checkbox" id="cicloId" name="cicloIds" th:value="${ciclo.id}"/>
+						<label class="pdd" th:text="${ciclo.nombre}"></label><br>
 					</th:block>
 				</div>
 				<input type="submit" value="Buscar"/>
@@ -95,13 +95,21 @@
 							<a th:if="${session.usuario.role == 'ROL_RRHH'}" th:href="@{/users/deleteofertas/} + ${oferta.id}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 						    <a th:if="${session.usuario.role == 'ROL_ADMIN'}" th:href="@{/admin/deleteofertas/} + ${oferta.id}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 						</td>
-						<td></td>
+						<td th:if="${session.usuario.role == 'ROL_ALUMNO'}">
+							<div th:if="!${inscritos.contains(oferta.id)}" >
+								<a th:href="@{/users/inscrib/} + ${oferta.id}">Inscribirse</a>
+							</div>
+						</td>
+						<td class="more" th:if="${session.usuario.role == 'ROL_RRHH'}">
+							<a th:href="@{/users/listusers/} + ${oferta.id}">Ver alumnos</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 			<a th:if="${session.usuario.role == 'ROL_RRHH'}" th:href="@{/users/createofertas}">Crear Oferta</a>
 			<a th:if="${session.usuario.role == 'ROL_ADMIN'}" class="pad" th:href="@{/admin/ofertasfilters}">Ofertas con fecha anterior a hoy</a>
 			<a th:if="${session.usuario.role == 'ROL_ADMIN'}" class="pad" th:href="@{/admin/ofertas}">Mostrar todas</a>
+			<a th:if="${session.usuario.role == 'ROL_ALUMNO'}" class="pad" th:href="@{/users/inscritos}">Ofertas en las que estoy inscrito</a>
 		</div>
 	</section>
 </body>

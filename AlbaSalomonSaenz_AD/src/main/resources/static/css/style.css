@@ -1191,3 +1191,14 @@ button {
 .pos{
 	display:grid;
 }
+
+.pdd{
+	padding:5px;
+}
+.cnt{
+	text-align:center;
+}
+.more{
+	padding:10px;
+	padding-top: 30px;
+}
